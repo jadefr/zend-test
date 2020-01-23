@@ -1,0 +1,74 @@
+<?php
+$title = "";
+$this->headTitle($title);
+?>
+
+<style>
+    .btn {
+        width: 15%;
+        margin-top: 20px;
+    }
+</style>
+
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<?php
+$form->setAttribute('action', $this->url('person', ['action' => 'edit', 'id' => $id]));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+$id = $this->form->get('id');
+$name = $this->form->get('name');
+$surname = $this->form->get('surname');
+$email = $this->form->get('email');
+$situation = $this->form->get('situation');
+
+$name->setAttribute('class', 'form-control');
+$surname->setAttribute('class', 'form-control');
+$email->setAttribute('class', 'form-control');
+$situation->setAttribute('class', 'form-control');
+$name->setAttribute('autofocus', 'autofocus');
+
+$submit = $this->form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+?>
+
+<?= $this->formElement($id) ?>
+
+
+    <div class="form-group">
+        <div class="col-md-6">
+            <?= $this->formLabel($name) ?>
+            <?= $this->formElement($name) ?>
+            <?= $this->formElementErrors()->render($name, ['class' => 'help-block']) ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <?= $this->formLabel($surname) ?>
+            <?= $this->formElement($surname) ?>
+            <?= $this->formElementErrors()->render($surname, ['class' => 'help-block']) ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <?= $this->formLabel($email) ?>
+            <?= $this->formElement($email) ?>
+            <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <?= $this->formLabel($situation) ?>
+            <?= $this->formElement($situation) ?>
+            <?= $this->formElementErrors()->render($situation, ['class' => 'help-block']) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?= $this->formElement($submit) ?>
+            <a href="<?= $this->url('person', ['action' => 'index']) ?>" class="btn btn-warning">Voltar</a>
+        </div>
+    </div>
+

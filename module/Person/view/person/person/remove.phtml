@@ -1,0 +1,44 @@
+<?php
+$title = "";
+$this->headTitle($title);
+?>
+<style>
+    h3 {
+        text-align: center;
+    }
+
+    .btn {
+        margin-top: 40px;
+        width: 40%;
+    }
+</style>
+
+<h1><?= $this->escapeHtml($title) ?></h1>
+<h3>Você deseja realmente excluir
+    "<?= $this->escapeHtml($person->getName()) ?> <?= $this->escapeHtml($person->getSurname()) ?>"</h3>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form action="<?= $this->url('person', ['action' => 'remove', 'id' => $id]) ?>" method="post">
+
+            <div class="form-group">
+                <input type="hidden" name="id" value="<?= $id ?>">
+                <!--input type="submit" class="btn btn-danger" name="delete" value="Sim" role="button">
+                <input type="submit" class="btn btn-success" name="delete" value="Não" role="button"-->
+
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-secondary btn-lg" name="delete" value="Não" role="button">
+
+                        <input type="submit" class="btn btn-danger btn-lg" name="delete" value="Sim" role="button">
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
+            </div>
+    </div>
+</div>
+</form>
