@@ -27,6 +27,9 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-hydrator" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-filter" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-i18n" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-developer-tools" />
     </include_path>
   </component>
 </project>

@@ -2,22 +2,36 @@
 
 namespace Person\Controller;
 
+use Person\Model\PersonTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Person\Form\PersonForm;
 
 class PersonController extends AbstractActionController {
 
-    private $table;
+    /**
+     * @var PersonTable
+     */
+    private $personTable;
 
-    public function __construct($table) {
-        $this->table = $table;
+    /**
+     * PersonController constructor.
+     * @param PersonTable $personTable
+     */
+    public function __construct(PersonTable $personTable) {
+        $this->personTable = $personTable;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function indexAction() {
-		return new ViewModel(['persons' => $this->table->getAll()]); // para retornar todos os registros do banco de dados
+		return new ViewModel(['persons' => $this->personTable->getAll()]); // para retornar todos os registros do banco de dados
 	}
 
+    /**
+     * @return \Zend\Http\Response|ViewModel
+     */
 	public function addAction(){
 
         $form = new PersonForm();
@@ -36,11 +50,14 @@ class PersonController extends AbstractActionController {
         }
 
         $person->exchangeArray($form->getData());
-        $this->table->savePerson($person);
+        $this->personTable->savePerson($person);
 
 	    return $this->redirect()->toRoute('person');
     }
 
+    /**
+     * @return array|\Zend\Http\Response
+     */
     public function editAction(){
         $id = (int) $this->params()->fromRoute('id',0);
         if ($id === 0) {
@@ -48,7 +65,7 @@ class PersonController extends AbstractActionController {
         }
 
         try {
-            $person = $this->table->getPerson($id);
+            $person = $this->personTable->getPerson($id);
         } catch (Exception $exception) {
             //echo $exception->getTraceAsString();
             return $this->redirect()->toRoute('person',['action' => 'index']);
@@ -70,10 +87,13 @@ class PersonController extends AbstractActionController {
         }
 
         //$person->exchangeArray($form->getData());
-        $this->table->savePerson($form->getData());
+        $this->personTable->savePerson($form->getData());
 	    return $this->redirect()->toRoute('person');
     }
 
+    /**
+     * @return array|\Zend\Http\Response
+     */
     public function removeAction(){
         $id = (int) $this->params()->fromRoute('id',0);
         if ($id === 0) {
@@ -84,11 +104,11 @@ class PersonController extends AbstractActionController {
             $delete = $request->getPost('delete', 'Não');
             if ($delete == 'Sim') {
                 $id = (int) $request->getPost('id');
-                $this->table->deletePerson($id);
+                $this->personTable->deletePerson($id);
             }
             return $this->redirect()->toRoute('person');
         }
-        return ['id' => $id, 'person' => $this->table->getPerson($id)];
+        return ['id' => $id, 'person' => $this->personTable->getPerson($id)];
     }
 
 }
